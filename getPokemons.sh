@@ -4,7 +4,7 @@ help() {
     echo "To use this command you must supply the number of pokemon you want to start with tag -p";
     echo "and the number of pokemons that you want to write in the excelsheet with the tag -n";
     echo ""
-    echo "./script.sh -p <Pokemon_Start> -n <Pokemons>";
+    echo "./script.sh -p <Start_Pokemon_ID> -n <Pokemons>";
     }
 
 while getopts ":n:p:h:" opt; do
@@ -37,6 +37,20 @@ while getopts ":n:p:h:" opt; do
             ;;
     esac
 done
+
+
+if [ -z "${p}" ]; then
+    echo "No arguments supplied"
+    echo ""
+    help;
+
+    exit 0;
+fi
+
+if [ -z "${n}" ]; then
+    n=20
+fi
+
 
 url="https://pokeapi.co/api/v2/pokemon?limit=${n}&offset=${p}"
 
